@@ -1,4 +1,4 @@
-import numpy as np
+'''import numpy as np
 from scipy.optimize import linear_sum_assignment
 from filterpy.kalman import KalmanFilter
 
@@ -42,7 +42,37 @@ class DeepSORT:
 
         self.tracks = updated_tracks
         return self.tracks
-        
+        '''
+# tracker/deepsort.py
+import numpy as np
+
+class DeepSORT:
+    """
+    Simple centroid-based tracker (NOT real DeepSORT)
+    Assigns a new ID for each detected object
+    """
+
+    def __init__(self):
+        self.tracks = {}
+        self.track_id = 0
+
+    def update(self, detections):
+        updated_tracks = []
+
+        for det in detections:
+            x1, y1, x2, y2 = det
+
+            # Calculate center point
+            cx = int((x1 + x2) / 2)
+            cy = int((y1 + y2) / 2)
+
+            self.tracks[self.track_id] = (cx, cy)
+            updated_tracks.append((self.track_id, x1, y1, x2, y2))
+            self.track_id += 1
+
+        return updated_tracks
+
         
 
         
+
