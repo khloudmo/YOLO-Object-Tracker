@@ -1,10 +1,10 @@
 import numpy as np
 from scipy.optimize import linear_sum_assignment
-from filterpy.kalman import kalmanFilter
+from filterpy.kalman import KalmanFilter
 
 class Track:
     def __init__(self,bbox,track_id):
-        self.kf=kalmanFilter(dim_x=7, dim_z=4)
+        self.kf=KalmanFilter(dim_x=7, dim_z=4)
         self.kf.F=np.eye(7)
         self.kf.H=np.eye(4, 7)
         self.kf.x[:4] = bbox.reshape((4,1))
@@ -44,4 +44,5 @@ class DeepSORT:
         return self.tracks
         
         
+
         
